@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+qdrant-client
+sentence-transformers
+pypdf
+python-docx
+diskcache
+requests
+python-multipart
+streamlit
+pytest
+
+
+
+# uvicorn main:app --reload --reload-exclude "venv/"

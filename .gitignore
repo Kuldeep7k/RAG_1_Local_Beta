@@ -1,0 +1,55 @@
+# Python environments and generated files
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+.venv/
+venv/
+env/
+ENV/
+
+# Test, coverage, and tooling caches
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+
+# Local RAG runtime state
+.runtime/
+data/*.db
+data/*.db-shm
+data/*.db-wal
+data/raw/*
+storage/
+snapshots/
+tmp/
+logs/
+
+# Local model and vector database binaries
+qdrant.exe
+qdrant
+.qdrant-initialized
+*.safetensors
+*.bin
+
+# IDE and operating-system files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
