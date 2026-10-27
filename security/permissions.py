@@ -2,8 +2,7 @@
 import json
 import os
 
-# Access levels ordered from least to most privileged.
-ACCESS_HIERARCHY = ["public", "employee", "manager", "executive"]
+from config import ACCESS_HIERARCHY
 
 class UnknownUserError(ValueError):
     """Raised when an authenticated identity has no configured scope."""
@@ -35,7 +34,7 @@ class User:
         """Returns every access level at or below this user's own level,
         so a manager can see employee + public content, etc."""
         idx = ACCESS_HIERARCHY.index(self.access_level)
-        return ACCESS_HIERARCHY[: idx + 1]
+        return list(ACCESS_HIERARCHY[: idx + 1])
 
 
 def get_user(user_id: str) -> User:

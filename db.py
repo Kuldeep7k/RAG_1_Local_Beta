@@ -6,7 +6,7 @@ async ingestion jobs, and per-request observability traces.
 import sqlite3
 from pathlib import Path
 
-from config import DB_PATH
+from config import DB_PATH, DEFAULT_ACCESS_LEVEL
 
 
 def get_connection() -> sqlite3.Connection:
@@ -29,11 +29,11 @@ def init_db():
     conn = get_connection()
     cur = conn.cursor()
 
-    cur.execute("""
+    cur.execute(f"""
         CREATE TABLE IF NOT EXISTS documents (
             document_id TEXT PRIMARY KEY,
             source TEXT NOT NULL,
-            access_level TEXT DEFAULT 'employee',
+            access_level TEXT DEFAULT '{DEFAULT_ACCESS_LEVEL}',
             department TEXT,
             status TEXT NOT NULL DEFAULT 'ready',
             created_at TEXT DEFAULT CURRENT_TIMESTAMP
@@ -45,7 +45,7 @@ def init_db():
         cur.execute("ALTER TABLE documents ADD COLUMN status TEXT NOT NULL DEFAULT 'ready'")
     cur.execute("CREATE INDEX IF NOT EXISTS idx_documents_status ON documents(status)")
 
-    cur.execute("""
+    cur.execute(f"""
         CREATE TABLE IF NOT EXISTS chunks (
             chunk_id TEXT PRIMARY KEY,
             document_id TEXT NOT NULL,
@@ -54,7 +54,7 @@ def init_db():
             section TEXT,
             article_number INTEGER,
             article_ref TEXT,
-            access_level TEXT DEFAULT 'employee',
+            access_level TEXT DEFAULT '{DEFAULT_ACCESS_LEVEL}',
             department TEXT,
             embedding_version TEXT,
             FOREIGN KEY (document_id) REFERENCES documents(document_id)
@@ -96,12 +96,12 @@ def init_db():
         END
     """)
 
-    cur.execute("""
+    cur.execute(f"""
         CREATE TABLE IF NOT EXISTS jobs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             file_path TEXT NOT NULL,
             source_name TEXT,
-            access_level TEXT DEFAULT 'employee',
+            access_level TEXT DEFAULT '{DEFAULT_ACCESS_LEVEL}',
             department TEXT,
             status TEXT DEFAULT 'pending',
             error TEXT,

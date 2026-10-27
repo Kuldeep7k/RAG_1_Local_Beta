@@ -1,1 +1,52 @@
-[]
+[
+  {
+    "question": "What does Article 14 of the Constitution of India provide?",
+    "expected_article_ref": "14",
+    "expected_answer": "Article 14 provides equality before the law and equal protection of the laws within the territory of India."
+  },
+  {
+    "question": "Which Article protects freedom of speech and expression?",
+    "expected_article_ref": "19",
+    "expected_answer": "Article 19 protects specified freedoms, including freedom of speech and expression."
+  },
+  {
+    "question": "What protection does Article 21 provide?",
+    "expected_article_ref": "21",
+    "expected_answer": "Article 21 protects life and personal liberty according to procedure established by law."
+  },
+  {
+    "question": "Which Article provides free and compulsory education for children?",
+    "expected_article_ref": "21A",
+    "expected_answer": "Article 21A provides free and compulsory education for children in the specified age group."
+  },
+  {
+    "question": "Which Article provides the right to move the Supreme Court for enforcement of Fundamental Rights?",
+    "expected_article_ref": "32",
+    "expected_answer": "Article 32 guarantees the right to move the Supreme Court for enforcement of Fundamental Rights."
+  },
+  {
+    "question": "What does Article 44 concern?",
+    "expected_article_ref": "44",
+    "expected_answer": "Article 44 concerns the State's effort to secure a uniform civil code for citizens."
+  },
+  {
+    "question": "Which Article deals with the duties of citizens?",
+    "expected_article_ref": "51A",
+    "expected_answer": "Article 51A sets out the Fundamental Duties of citizens."
+  },
+  {
+    "question": "Which Article concerns the amendment of the Constitution?",
+    "expected_article_ref": "368",
+    "expected_answer": "Article 368 sets out Parliament's power and procedure to amend the Constitution."
+  },
+  {
+    "question": "Which Article concerns a Proclamation of Emergency?",
+    "expected_article_ref": "352",
+    "expected_answer": "Article 352 concerns the Proclamation of Emergency."
+  },
+  {
+    "question": "Which Article concerns the constitutional right to property?",
+    "expected_article_ref": "300A",
+    "expected_answer": "Article 300A provides that no person shall be deprived of property except by authority of law."
+  }
+]

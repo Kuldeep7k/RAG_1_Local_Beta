@@ -9,10 +9,12 @@ import pandas as pd
 import requests
 import streamlit as st
 
+from config import ACCESS_HIERARCHY, DEFAULT_ACCESS_LEVEL
+
 API_URL = os.environ.get("RAG_API_URL", "http://localhost:8000")
 API_TOKEN = os.environ.get("RAG_API_TOKEN")
 MAX_UPLOAD_BYTES = int(os.environ.get("MAX_UPLOAD_BYTES", str(25 * 1024 * 1024)))
-POLL_INTERVAL_SECONDS = 1
+POLL_INTERVAL_SECONDS = float(os.environ.get("UI_POLL_INTERVAL_SECONDS", "1"))
 
 st.set_page_config(page_title="Local RAG", page_icon="🔎", layout="wide")
 st.markdown(
@@ -169,7 +171,11 @@ with st.sidebar:
         f'<div class="upload-note">PDF, DOCX, TXT, or MD · up to {format_bytes(MAX_UPLOAD_BYTES)} per file</div>',
         unsafe_allow_html=True,
     )
-    access_level = st.selectbox("Access level", ["public", "employee", "manager", "executive"], index=1)
+    access_level = st.selectbox(
+        "Access level",
+        ACCESS_HIERARCHY,
+        index=ACCESS_HIERARCHY.index(DEFAULT_ACCESS_LEVEL),
+    )
     active_job = get_active_job()
     oversized_upload = uploaded_file is not None and uploaded_file.size > MAX_UPLOAD_BYTES
     if oversized_upload:

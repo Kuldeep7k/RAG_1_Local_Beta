@@ -21,7 +21,7 @@ from security.permissions import (
 from security.auth import get_authenticated_user
 from config import (
     TOP_K_RETRIEVAL, TOP_K_RERANK, RERANK_CONFIDENCE_THRESHOLD,
-    ALLOWED_UPLOAD_EXTENSIONS, MAX_UPLOAD_BYTES,
+    ALLOWED_UPLOAD_EXTENSIONS, MAX_UPLOAD_BYTES, DEFAULT_ACCESS_LEVEL,
 )
 
 UPLOAD_DIR = Path("data/raw")
@@ -57,7 +57,7 @@ def _public_job(row) -> dict:
 @app.post("/upload")
 async def upload_document(
     file: UploadFile = File(...),
-    access_level: str = Form("employee"),
+    access_level: str = Form(DEFAULT_ACCESS_LEVEL),
     department: str = Form(None),
     uploader: User = Depends(get_authenticated_user),
 ):

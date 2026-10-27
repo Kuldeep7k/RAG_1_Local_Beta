@@ -26,12 +26,12 @@ pip install -r requirements.txt
 
 ## Running the system (five processes, each in its own terminal)
 
-Pick one secret string once and reuse it everywhere below, e.g. `myqdrantkey123`.
+Pick one secret string once and reuse it everywhere below, e.g. `replace-with-a-random-qdrant-key`.
 
 **Terminal 1 - vector DB**
 ```powershell
 $env:QDRANT__SERVICE__HOST="127.0.0.1"
-$env:QDRANT__SERVICE__API_KEY="myqdrantkey123"
+$env:QDRANT__SERVICE__API_KEY="replace-with-a-random-qdrant-key"
 .\qdrant.exe
 ```
 Binds Qdrant to localhost only and requires the key for every request.
@@ -39,7 +39,7 @@ Binds Qdrant to localhost only and requires the key for every request.
 **Terminal 2 - API**
 ```powershell
 .\venv\Scripts\Activate.ps1
-$env:QDRANT_API_KEY="myqdrantkey123"
+$env:QDRANT_API_KEY="replace-with-a-random-qdrant-key"
 $env:RAG_AUTH_USERS='{"local_user":{"role":"employee","access_level":"employee","department":null}}'
 $env:RAG_AUTH_TOKENS='{"replace-with-a-random-token":"local_user"}'
 uvicorn main:app --reload --reload-exclude "venv/*"
@@ -49,7 +49,7 @@ uvicorn main:app --reload --reload-exclude "venv/*"
 **Terminal 3 - ingestion worker**
 ```powershell
 .\venv\Scripts\Activate.ps1
-$env:QDRANT_API_KEY="myqdrantkey123"
+$env:QDRANT_API_KEY="replace-with-a-random-qdrant-key"
 python worker.py
 ```
 
@@ -131,5 +131,11 @@ python -m eval.evaluate
 - Always bind Qdrant to `127.0.0.1` and set `QDRANT__SERVICE__API_KEY`.
 - `EMBEDDING_MODEL`, `EMBEDDING_DIM`, `EMBEDDING_VERSION`, and
   `QDRANT_COLLECTION` are configurable. The default embedding dimension is 384.
+- `RERANKER_MODEL` is configurable for testing rerankers without changing
+  source code. Keep the current default until the evaluation benchmark shows
+  a better recall/latency trade-off.
+- `TOP_K_RETRIEVAL`, `TOP_K_RERANK`, `DEFAULT_ACCESS_LEVEL`,
+  `WORKER_POLL_INTERVAL_SECONDS`, and `UI_POLL_INTERVAL_SECONDS` can be
+  configured through environment variables.
 - `OLLAMA_BASE_URL` controls the Ollama provider connection.
 

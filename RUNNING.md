@@ -26,13 +26,13 @@ pip install -r requirements.txt
 
 Use five PowerShell terminals. Choose one Qdrant secret and reuse it in the API and worker terminals.
 
-Example secret: `myqdrantkey123`
+Example secret: `replace-with-a-random-qdrant-key`
 
 ### Terminal 1: Qdrant
 
 ```powershell
 $env:QDRANT__SERVICE__HOST="127.0.0.1"
-$env:QDRANT__SERVICE__API_KEY="myqdrantkey123"
+$env:QDRANT__SERVICE__API_KEY="replace-with-a-random-qdrant-key"
 .\qdrant.exe
 ```
 
@@ -42,9 +42,9 @@ Keep this terminal running. Qdrant listens locally at `http://127.0.0.1:6333`.
 
 ```powershell
 .\venv\Scripts\Activate.ps1
-$env:QDRANT_API_KEY="myqdrantkey123"
+$env:QDRANT_API_KEY="replace-with-a-random-qdrant-key"
 $env:RAG_AUTH_USERS='{"local_user":{"role":"employee","access_level":"employee","department":null}}'
-$env:RAG_AUTH_TOKENS='{"pAQIDD3zc6ijNavXr1BoVTvM7eEdqVf2":"local_user"}'
+$env:RAG_AUTH_TOKENS='{"replace-with-a-random-token":"local_user"}'
 uvicorn main:app --reload --reload-exclude "venv/"
 ```
 
@@ -54,7 +54,7 @@ uvicorn main:app --reload --reload-exclude "venv/"
 
 ```powershell
 .\venv\Scripts\Activate.ps1
-$env:QDRANT_API_KEY="myqdrantkey123"
+$env:QDRANT_API_KEY="replace-with-a-random-qdrant-key"
 python worker.py
 ```
 
@@ -68,7 +68,7 @@ job history is removed when the worker starts.
 
 ```powershell
 .\venv\Scripts\Activate.ps1
-$env:RAG_API_TOKEN="pAQIDD3zc6ijNavXr1BoVTvM7eEdqVf2"
+$env:RAG_API_TOKEN="replace-with-a-random-token"
 streamlit run ui.py
 ```
 
@@ -88,6 +88,10 @@ depend on the Ollama service. Verify the LLM model with:
 ```powershell
 ollama list
 ```
+
+Optional runtime settings such as `TOP_K_RETRIEVAL`, `TOP_K_RERANK`,
+`DEFAULT_ACCESS_LEVEL`, and poll intervals can be set with PowerShell
+environment variables before starting the corresponding process.
 
 
 ## Use the application

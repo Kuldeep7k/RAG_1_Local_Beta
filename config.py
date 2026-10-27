@@ -51,16 +51,25 @@ CHUNK_SIZE_TOKENS = _env_int("CHUNK_SIZE_TOKENS", 220, 32, 240)
 CHUNK_OVERLAP_TOKENS = _env_int("CHUNK_OVERLAP_TOKENS", 35, 0, CHUNK_SIZE_TOKENS - 1)
 
 # --- Retrieval ---
-TOP_K_RETRIEVAL = 40
-TOP_K_RERANK = 8
-RERANKER_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+TOP_K_RETRIEVAL = _env_int("TOP_K_RETRIEVAL", 40, 1, 200)
+TOP_K_RERANK = _env_int("TOP_K_RERANK", 8, 1, TOP_K_RETRIEVAL)
+# Keep the current model as the baseline; compare alternatives with
+# eval/benchmark_rerankers.py before changing this value.
+RERANKER_MODEL = os.environ.get(
+    "RERANKER_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2"
+)
 # Cross-encoder scores are raw model logits, not confidence probabilities.
 # Keep this disabled until it is calibrated against a representative labelled
 # evaluation set. Set a numeric value only with documented evaluation data.
 RERANK_CONFIDENCE_THRESHOLD = None
 
 # --- Access control ---
+ACCESS_HIERARCHY = ("public", "employee", "manager", "executive")
 DEFAULT_ACCESS_LEVEL = os.environ.get("DEFAULT_ACCESS_LEVEL", "employee")
+if DEFAULT_ACCESS_LEVEL not in ACCESS_HIERARCHY:
+    raise ValueError(
+        f"DEFAULT_ACCESS_LEVEL must be one of {', '.join(ACCESS_HIERARCHY)}"
+    )
 MAX_UPLOAD_BYTES = _env_int("MAX_UPLOAD_BYTES", 25 * 1024 * 1024, 1, 250 * 1024 * 1024)
 ALLOWED_UPLOAD_EXTENSIONS = {".pdf", ".docx", ".txt", ".md"}
 JOB_STALE_SECONDS = _env_int("JOB_STALE_SECONDS", 300, 30, 86400)

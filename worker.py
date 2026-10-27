@@ -2,6 +2,7 @@
 document uploads via the API never block on parsing/embedding. Run this
 as a separate long-lived process alongside `uvicorn main:app`."""
 import time
+import os
 
 from config import JOB_STALE_SECONDS
 from db import (
@@ -10,7 +11,7 @@ from db import (
 )
 from ingestion.ingest import ingest_file, cleanup_document, IngestionCancelled
 
-POLL_INTERVAL_SECONDS = 3
+POLL_INTERVAL_SECONDS = float(os.environ.get("WORKER_POLL_INTERVAL_SECONDS", "3"))
 
 
 def process_job(job: dict):
